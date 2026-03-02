@@ -26,7 +26,7 @@
 
             <div class="price-calc">
                 <input type="number" id="expenseCount" placeholder="КОЛ-ВО" value="1">
-                <input type="number" id="expensePrice" placeholder="ЦЕНА">
+                <input type="number" id="expensePrice" placeholder="ЦЕНА ЗА ЕД.">
             </div>
             
             <button id="addBtn">ДОБАВИТЬ В СПИСОК</button>
@@ -35,6 +35,16 @@
         <div id="expenseList" class="expense-list"></div>
         
         <button id="clearAll" class="clear-btn">ОЧИСТИТЬ ВСЮ ИСТОРИЮ</button>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <p>УДАЛИТЬ ВСЮ ИСТОРИЮ ТРАТ?</p>
+            <div class="modal-buttons">
+                <button id="confirmCancel">ОТМЕНА</button>
+                <button id="confirmDelete" class="danger">УДАЛИТЬ</button>
+            </div>
+        </div>
     </div>
 
     <script src="./main.js"></script>

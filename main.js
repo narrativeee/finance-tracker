@@ -7,25 +7,23 @@ const listContainer = document.querySelector('#expenseList');
 const totalDisplay = document.querySelector('#totalAmount');
 const clearBtn = document.querySelector('#clearAll');
 
-// Загрузка данных из LocalStorage
+const modal = document.querySelector('#modalOverlay');
+const confirmDeleteBtn = document.querySelector('#confirmDelete');
+const confirmCancelBtn = document.querySelector('#confirmCancel');
+
 let expenses = JSON.parse(localStorage.getItem('minimal_finance_data')) || [];
 
 function render() {
     listContainer.innerHTML = '';
     let totalAll = 0;
 
-    // Группировка массива по категориям
     const grouped = expenses.reduce((acc, item) => {
-        if (!acc[item.category]) {
-            acc[item.category] = [];
-        }
+        if (!acc[item.category]) acc[item.category] = [];
         acc[item.category].push(item);
         return acc;
     }, {});
 
-    // Отрисовка групп
     for (const category in grouped) {
-        // Создаем визуальный разделитель категории
         const header = document.createElement('div');
         header.className = 'category-group-header';
         header.textContent = category;
@@ -34,8 +32,6 @@ function render() {
         grouped[category].forEach((item) => {
             const itemTotal = item.price * item.count;
             totalAll += itemTotal;
-            
-            // Находим индекс в оригинальном массиве для корректного удаления
             const realIndex = expenses.indexOf(item);
 
             const div = document.createElement('div');
@@ -54,7 +50,6 @@ function render() {
         });
     }
 
-    // Обновляем общую сумму и сохраняем
     totalDisplay.textContent = `${totalAll} ₽`;
     localStorage.setItem('minimal_finance_data', JSON.stringify(expenses));
 }
@@ -67,19 +62,14 @@ function addExpense() {
 
     if (name && price > 0 && count > 0) {
         expenses.push({ name, category, count, price });
-        
-        // Очистка полей ввода
         nameInput.value = '';
         priceInput.value = '';
         countInput.value = '1';
-        
         render();
-    } else {
-        alert('Пожалуйста, заполните название и цену');
+        nameInput.focus();
     }
 }
 
-// Глобальная функция удаления (доступна через onclick в HTML)
 window.deleteExpense = function(index) {
     expenses.splice(index, 1);
     render();
@@ -87,43 +77,19 @@ window.deleteExpense = function(index) {
 
 addBtn.addEventListener('click', addExpense);
 
-// Очистка всего хранилища
-clearBtn.addEventListener('click', () => {
-    if (confirm('Удалить все записи безвозвратно?')) {
-        expenses = [];
-        render();
-    }
+// Логика модального окна
+clearBtn.addEventListener('click', () => modal.style.display = 'flex');
+confirmCancelBtn.addEventListener('click', () => modal.style.display = 'none');
+confirmDeleteBtn.addEventListener('click', () => {
+    expenses = [];
+    render();
+    modal.style.display = 'none';
 });
 
-// Первичная отрисовка при загрузке
+// Навигация через Enter
+nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') categoryInput.focus(); });
+categoryInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') countInput.focus(); });
+countInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') priceInput.focus(); });
+priceInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addExpense(); });
+
 render();
-
-// Цепочка фокуса при нажатии Enter
-nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault(); // Чтобы форма не мерцала
-        categoryInput.focus();
-    }
-});
-
-categoryInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        countInput.focus();
-    }
-});
-
-countInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        priceInput.focus();
-    }
-});
-
-priceInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        addExpense(); // Вызываем функцию добавления
-        nameInput.focus(); // Возвращаем фокус в начало для новой записи
-    }
-});
