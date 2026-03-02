@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 10vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 50px;
+}
+
+.label {
+    color: #444;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 100;
+    letter-spacing: -2px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #222;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-bottom-color: #fff;
+}
+
+button#addBtn {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button#addBtn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.expense-list {
+    margin-top: 40px;
+    list-style: none;
+    text-align: left;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #111;
+    animation: fadeIn 0.5s ease;
+}
+
+.exp-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.exp-name {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #eee;
+}
+
+.exp-price {
+    font-weight: 200;
+    font-size: 1.2rem;
+}
+
+.delete-item {
+    color: #333;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.delete-item:hover {
+    color: #ff4444;
+}
+
+.clear-btn {
+    background: none;
+    border: none;
+    color: #333;
+    margin-top: 50px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.clear-btn:hover {
+    color: #ff4444;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

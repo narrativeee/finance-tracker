@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker | Minimal</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p class="label">ОБЩИЕ РАСХОДЫ</p>
+            <h1 id="totalAmount">0 ₽</h1>
+        </header>
+
+        <div class="input-group">
+            <input type="text" id="expenseName" placeholder="НАЗВАНИЕ (НАПР. КОФЕ)" autocomplete="off">
+            <input type="number" id="expenseSum" placeholder="СУММА" autocomplete="off">
+            <button id="addBtn">ДОБАВИТЬ</button>
+        </div>
+
+        <ul id="expenseList" class="expense-list"></ul>
+        
+        <button id="clearAll" class="clear-btn">ОЧИСТИТЬ ВСЁ</button>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
