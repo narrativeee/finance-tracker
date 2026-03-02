@@ -2,8 +2,8 @@
 
 Минималистичный менеджер личных финансов. Приложение позволяет не только фиксировать расходы, но и автоматически группирует их по категориям, рассчитывает общую сумму и сохраняет данные в локальное хранилище.
 
-[Живое демо (GitHub)](https://narrativeee.github.io/finance-tracker)  
-[Зеркало на Netlify](https://finance-tracker-narrativiii.netlify.app)
+[Живое демо (GitHub)](https://narrativeee.github.io/finance-tracker/)  
+[Зеркало на Netlify](finance-tracker-narrativiii.netlify.app)
 
 ### Особенности:
 * **Smart Categorization:** Автоматическая группировка трат по типам (Еда, Транспорт, Хобби и др.) с визуальным разделением.
