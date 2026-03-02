@@ -1,144 +1,59 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-    background-color: #000;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding-top: 10vh;
+    background-color: #000; color: #fff;
+    min-height: 100vh; display: flex; justify-content: center; padding-top: 5vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    text-align: center;
+.container { width: 100%; max-width: 450px; padding: 20px; text-align: center; }
+
+header { margin-bottom: 30px; }
+.label { color: #444; font-size: 0.75rem; letter-spacing: 3px; margin-bottom: 10px; }
+h1 { font-size: 4rem; font-weight: 100; letter-spacing: -2px; }
+
+.input-group { display: flex; flex-direction: column; gap: 12px; }
+
+/* Стили для выпадающего списка */
+select, input {
+    background: transparent; border: none; border-bottom: 1px solid #222;
+    color: #fff; padding: 12px; font-size: 1rem; outline: none; text-align: center;
 }
 
-header {
-    margin-bottom: 50px;
-}
+select { text-align-last: center; cursor: pointer; color: #888; }
+select option { background: #000; color: #fff; }
 
-.label {
-    color: #444;
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-}
-
-h1 {
-    font-size: 4rem;
-    font-weight: 100;
-    letter-spacing: -2px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #222;
-    color: #fff;
-    padding: 12px;
-    font-size: 1rem;
-    outline: none;
-    text-align: center;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-bottom-color: #fff;
-}
+.price-calc { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
 
 button#addBtn {
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 12px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
-    margin-top: 10px;
-    transition: 0.3s;
+    background: transparent; border: 1px solid #fff; color: #fff;
+    padding: 12px; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 2px; font-size: 0.8rem; margin-top: 10px; transition: 0.3s;
 }
+button#addBtn:hover { background: #fff; color: #000; }
 
-button#addBtn:hover {
-    background: #fff;
-    color: #000;
-}
-
-.expense-list {
-    margin-top: 40px;
-    list-style: none;
-    text-align: left;
-}
+.expense-list { margin-top: 30px; list-style: none; text-align: left; }
 
 .expense-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #111;
-    animation: fadeIn 0.5s ease;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0; border-bottom: 1px solid #111; animation: fadeIn 0.4s ease;
 }
 
-.exp-info {
-    display: flex;
-    flex-direction: column;
+.exp-category {
+    font-size: 0.6rem; color: #555; letter-spacing: 1px; margin-bottom: 4px;
 }
 
-.exp-name {
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    color: #eee;
-}
+.exp-name { text-transform: uppercase; font-size: 0.9rem; color: #eee; }
 
-.exp-price {
-    font-weight: 200;
-    font-size: 1.2rem;
-}
+.exp-details { font-size: 0.7rem; color: #444; }
 
-.delete-item {
-    color: #333;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    transition: 0.3s;
-}
+.exp-total-price { font-weight: 200; font-size: 1.2rem; }
 
-.delete-item:hover {
-    color: #ff4444;
-}
+.delete-item { color: #333; cursor: pointer; background: none; border: none; font-size: 1.5rem; transition: 0.3s; padding: 0 10px; }
+.delete-item:hover { color: #ff4444; }
 
-.clear-btn {
-    background: none;
-    border: none;
-    color: #333;
-    margin-top: 50px;
-    cursor: pointer;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
+.clear-btn { background: none; border: none; color: #333; margin-top: 40px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; }
 
-.clear-btn:hover {
-    color: #ff4444;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }

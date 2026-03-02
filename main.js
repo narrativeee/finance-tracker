@@ -1,44 +1,55 @@
 const nameInput = document.querySelector('#expenseName');
-const sumInput = document.querySelector('#expenseSum');
+const categoryInput = document.querySelector('#expenseCategory');
+const countInput = document.querySelector('#expenseCount');
+const priceInput = document.querySelector('#expensePrice');
 const addBtn = document.querySelector('#addBtn');
 const list = document.querySelector('#expenseList');
 const totalDisplay = document.querySelector('#totalAmount');
 const clearBtn = document.querySelector('#clearAll');
 
-// Загружаем данные
-let expenses = JSON.parse(localStorage.getItem('my_expenses')) || [];
+let expenses = JSON.parse(localStorage.getItem('my_finance_data')) || [];
 
 function render() {
     list.innerHTML = '';
-    let total = 0;
+    let totalAll = 0;
 
     expenses.forEach((item, index) => {
-        total += Number(item.sum);
+        const itemTotal = item.price * item.count;
+        totalAll += itemTotal;
         
         const li = document.createElement('li');
         li.className = 'expense-item';
         li.innerHTML = `
             <div class="exp-info">
-                <span class="exp-name">${item.name}</span>
-                <span class="exp-price">${item.sum} ₽</span>
+                <span class="exp-category">${item.category}</span>
+                <div class="exp-name">${item.name}</div>
+                <div class="exp-details">${item.count} шт. x ${item.price} ₽</div>
             </div>
-            <button class="delete-item" onclick="deleteExpense(${index})">×</button>
+            <div style="display: flex; align-items: center;">
+                <span class="exp-total-price">${itemTotal} ₽</span>
+                <button class="delete-item" onclick="deleteExpense(${index})">×</button>
+            </div>
         `;
         list.appendChild(li);
     });
 
-    totalDisplay.textContent = `${total} ₽`;
-    localStorage.setItem('my_expenses', JSON.stringify(expenses));
+    totalDisplay.textContent = `${totalAll} ₽`;
+    localStorage.setItem('my_finance_data', JSON.stringify(expenses));
 }
 
 function addExpense() {
     const name = nameInput.value.trim();
-    const sum = sumInput.value.trim();
+    const category = categoryInput.value;
+    const count = Number(countInput.value);
+    const price = Number(priceInput.value);
 
-    if (name && sum) {
-        expenses.unshift({ name, sum: Number(sum) });
+    if (name && price > 0 && count > 0) {
+        expenses.unshift({ name, category, count, price });
+        
+        // Очистка полей
         nameInput.value = '';
-        sumInput.value = '';
+        priceInput.value = '';
+        countInput.value = '1';
         render();
     }
 }
@@ -50,13 +61,8 @@ function deleteExpense(index) {
 
 addBtn.addEventListener('click', addExpense);
 
-// Добавление по Enter
-sumInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addExpense();
-});
-
 clearBtn.addEventListener('click', () => {
-    if (confirm('Очистить весь список?')) {
+    if (confirm('Очистить всё?')) {
         expenses = [];
         render();
     }

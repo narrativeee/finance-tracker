@@ -14,8 +14,21 @@
         </header>
 
         <div class="input-group">
-            <input type="text" id="expenseName" placeholder="НАЗВАНИЕ (НАПР. КОФЕ)" autocomplete="off">
-            <input type="number" id="expenseSum" placeholder="СУММА" autocomplete="off">
+            <input type="text" id="expenseName" placeholder="НАЗВАНИЕ" autocomplete="off">
+            
+            <select id="expenseCategory">
+                <option value="ПРОДУКТЫ">ЕДА</option>
+                <option value="ТРАНСПОРТ">ТРАНСПОРТ</option>
+                <option value="ХОББИ">ХОББИ</option>
+                <option value="ДОМ">ДОМ</option>
+                <option value="ДРУГОЕ">ДРУГОЕ</option>
+            </select>
+
+            <div class="price-calc">
+                <input type="number" id="expenseCount" placeholder="КОЛ-ВО" value="1">
+                <input type="number" id="expensePrice" placeholder="ЦЕНА ЗА ЕД.">
+            </div>
+            
             <button id="addBtn">ДОБАВИТЬ</button>
         </div>
 
