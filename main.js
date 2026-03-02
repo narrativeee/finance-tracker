@@ -3,38 +3,60 @@ const categoryInput = document.querySelector('#expenseCategory');
 const countInput = document.querySelector('#expenseCount');
 const priceInput = document.querySelector('#expensePrice');
 const addBtn = document.querySelector('#addBtn');
-const list = document.querySelector('#expenseList');
+const listContainer = document.querySelector('#expenseList');
 const totalDisplay = document.querySelector('#totalAmount');
 const clearBtn = document.querySelector('#clearAll');
 
-let expenses = JSON.parse(localStorage.getItem('my_finance_data')) || [];
+// Загрузка данных из LocalStorage
+let expenses = JSON.parse(localStorage.getItem('minimal_finance_data')) || [];
 
 function render() {
-    list.innerHTML = '';
+    listContainer.innerHTML = '';
     let totalAll = 0;
 
-    expenses.forEach((item, index) => {
-        const itemTotal = item.price * item.count;
-        totalAll += itemTotal;
-        
-        const li = document.createElement('li');
-        li.className = 'expense-item';
-        li.innerHTML = `
-            <div class="exp-info">
-                <span class="exp-category">${item.category}</span>
-                <div class="exp-name">${item.name}</div>
-                <div class="exp-details">${item.count} шт. x ${item.price} ₽</div>
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span class="exp-total-price">${itemTotal} ₽</span>
-                <button class="delete-item" onclick="deleteExpense(${index})">×</button>
-            </div>
-        `;
-        list.appendChild(li);
-    });
+    // Группировка массива по категориям
+    const grouped = expenses.reduce((acc, item) => {
+        if (!acc[item.category]) {
+            acc[item.category] = [];
+        }
+        acc[item.category].push(item);
+        return acc;
+    }, {});
 
+    // Отрисовка групп
+    for (const category in grouped) {
+        // Создаем визуальный разделитель категории
+        const header = document.createElement('div');
+        header.className = 'category-group-header';
+        header.textContent = category;
+        listContainer.appendChild(header);
+
+        grouped[category].forEach((item) => {
+            const itemTotal = item.price * item.count;
+            totalAll += itemTotal;
+            
+            // Находим индекс в оригинальном массиве для корректного удаления
+            const realIndex = expenses.indexOf(item);
+
+            const div = document.createElement('div');
+            div.className = 'expense-item';
+            div.innerHTML = `
+                <div class="exp-info">
+                    <div class="exp-name">${item.name}</div>
+                    <div class="exp-details">${item.count} шт. по ${item.price} ₽</div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="exp-total-price">${itemTotal} ₽</span>
+                    <button class="delete-item" onclick="deleteExpense(${realIndex})">×</button>
+                </div>
+            `;
+            listContainer.appendChild(div);
+        });
+    }
+
+    // Обновляем общую сумму и сохраняем
     totalDisplay.textContent = `${totalAll} ₽`;
-    localStorage.setItem('my_finance_data', JSON.stringify(expenses));
+    localStorage.setItem('minimal_finance_data', JSON.stringify(expenses));
 }
 
 function addExpense() {
@@ -44,28 +66,64 @@ function addExpense() {
     const price = Number(priceInput.value);
 
     if (name && price > 0 && count > 0) {
-        expenses.unshift({ name, category, count, price });
+        expenses.push({ name, category, count, price });
         
-        // Очистка полей
+        // Очистка полей ввода
         nameInput.value = '';
         priceInput.value = '';
         countInput.value = '1';
+        
         render();
+    } else {
+        alert('Пожалуйста, заполните название и цену');
     }
 }
 
-function deleteExpense(index) {
+// Глобальная функция удаления (доступна через onclick в HTML)
+window.deleteExpense = function(index) {
     expenses.splice(index, 1);
     render();
-}
+};
 
 addBtn.addEventListener('click', addExpense);
 
+// Очистка всего хранилища
 clearBtn.addEventListener('click', () => {
-    if (confirm('Очистить всё?')) {
+    if (confirm('Удалить все записи безвозвратно?')) {
         expenses = [];
         render();
     }
 });
 
+// Первичная отрисовка при загрузке
 render();
+
+// Цепочка фокуса при нажатии Enter
+nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault(); // Чтобы форма не мерцала
+        categoryInput.focus();
+    }
+});
+
+categoryInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        countInput.focus();
+    }
+});
+
+countInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        priceInput.focus();
+    }
+});
+
+priceInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        addExpense(); // Вызываем функцию добавления
+        nameInput.focus(); // Возвращаем фокус в начало для новой записи
+    }
+});

@@ -14,28 +14,29 @@
         </header>
 
         <div class="input-group">
-            <input type="text" id="expenseName" placeholder="НАЗВАНИЕ" autocomplete="off">
+            <input type="text" id="expenseName" placeholder="НАЗВАНИЕ ТРАТЫ" autocomplete="off">
             
             <select id="expenseCategory">
-                <option value="ПРОДУКТЫ">ЕДА</option>
+                <option value="ПРОДУКТЫ">ЕДА / ПРОДУКТЫ</option>
                 <option value="ТРАНСПОРТ">ТРАНСПОРТ</option>
-                <option value="ХОББИ">ХОББИ</option>
-                <option value="ДОМ">ДОМ</option>
+                <option value="ХОББИ">ХОББИ / ОТДЫХ</option>
+                <option value="ДОМ">ДОМ / БЫТ</option>
                 <option value="ДРУГОЕ">ДРУГОЕ</option>
             </select>
 
             <div class="price-calc">
                 <input type="number" id="expenseCount" placeholder="КОЛ-ВО" value="1">
-                <input type="number" id="expensePrice" placeholder="ЦЕНА ЗА ЕД.">
+                <input type="number" id="expensePrice" placeholder="ЦЕНА">
             </div>
             
-            <button id="addBtn">ДОБАВИТЬ</button>
+            <button id="addBtn">ДОБАВИТЬ В СПИСОК</button>
         </div>
 
-        <ul id="expenseList" class="expense-list"></ul>
+        <div id="expenseList" class="expense-list"></div>
         
-        <button id="clearAll" class="clear-btn">ОЧИСТИТЬ ВСЁ</button>
+        <button id="clearAll" class="clear-btn">ОЧИСТИТЬ ВСЮ ИСТОРИЮ</button>
     </div>
+
     <script src="./main.js"></script>
 </body>
 </html>
